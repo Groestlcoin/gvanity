@@ -67,6 +67,7 @@
 #include "secp256k1/include/secp256k1.h"
 
 #include "segwit_addr.h"
+#include "groestl.h"
 
 #define LCRYPTO_OPS
 #include "test_test_test.h"
@@ -174,7 +175,10 @@ hash160(void *out, const void *in, size_t inlen)
 static void
 doublesha(void *out, size_t outlen, const void *in, size_t inlen)
 {
-	SHA256_CTX shactx;
+	unsigned char buf[32];
+    zeroize(buf, sizeof(buf));
+    groestlhash(buf, in , inlen);
+        /*SHA256_CTX shactx;
 	unsigned char buf[32];
 
 	SHA256_Init(&shactx);
@@ -186,10 +190,12 @@ doublesha(void *out, size_t outlen, const void *in, size_t inlen)
 	SHA256_Final(buf, &shactx);
 
 	zeroize(&shactx, sizeof(shactx));
+*/
 
 	memcpy(out, buf, outlen > sizeof(buf)? sizeof(buf) : outlen);
 
 	zeroize(buf, sizeof(buf));
+
 }
 
 /*
@@ -365,19 +371,19 @@ segwit_nested(char *addr, size_t *addrsz, char *wif, size_t *wifsz,
 
 static int
 segwit_bech32(char *addr, size_t *addrsz, char *wif, size_t *wifsz,
-	const void *h160, const void *skey)
+	const void *h160, const void *skey) 
 {
 	unsigned char buf[32];
 	int error;
 
 	/* WARNING: Inverted error. */
-	error = segwit_addr_encode(addr, "bc", 0, h160, 20);
+	error = segwit_addr_encode(addr, "grs", 0, h160, 20);
 	if (error != 1) {
-		fprintf(stderr, "segwit_addr() returned %d\n", error);
+		fprintf(stderr, "segwit_addr() returned %d\n", error); 
 		return (-99);
 	}
 
-	error = mkwif(wif, wifsz, WIFV(WIF_P2WPKH), skey);
+	error = mkwif(wif, wifsz, WIFV(WIF_P2PKH), skey);
 	if (error)
 		fprintf(stderr, "mkwif() failed\n");
 
@@ -668,7 +674,7 @@ main(int argc, char *argv[])
 	char oldaddr[40], bech32[75], wif[64];
 	size_t oldaddrsz, bech32sz, wifsz;
 
-	while ((ch = getopt(argc, argv, "0:1:3:EIN:R:Tb:eir:v")) > -1) {
+	while ((ch = getopt(argc, argv, "0:1:3:EIN:R:Tb:eir:v:h")) > -1) {
 		switch (ch) {
 		case '0':
 			n_oldstyle = atoi(optarg);
@@ -710,10 +716,14 @@ main(int argc, char *argv[])
 		case 'v':
 			++v_flag;
 			break;
+		case 'h':
+			printf("to generate bech32 vanity with 'abcd' just call -> gsevan -r abcd");
+			break;
 		default:
 			return (1);
 		}
 	}
+
 
 	if (v_flag)
 		setlocale(LC_NUMERIC, "");

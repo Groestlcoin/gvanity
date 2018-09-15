@@ -1,6 +1,6 @@
-# segvan
+# gsegvan
 
-## Segwit vanity address and bulk address generator for Bitcoin
+## Segwit vanity address and bulk address generator for Groestlcoin
 
 By nullius <[nullius@nym.zone](nullius@nym.zone)> ([PGP ECC](https://sks-keyservers.net/pks/lookup?op=get&search=0xC2E91CD74A4C57A105F6C21B5A00591B2F307E0C)) ([PGP RSA](https://sks-keyservers.net/pks/lookup?op=get&search=0xA232750664CC39D61CE5D61536EBB4AB699A10EE)) ([Bitcoin Forum](https://bitcointalk.org/index.php?action=profile;u=976210))
 

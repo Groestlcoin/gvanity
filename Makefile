@@ -1,44 +1,22 @@
 PROG=segvan
-CSTD=c99
-BINDIR=/usr/local/bin
-MANDIR=/usr/local/man/man
+CFLAGS+=-O2 -std=c11
+LDFLAGS+=-L./secp256k1/.libs
+LDADD=-lgmp -lsecp256k1 -lcrypto
 
-INSTALLFLAGS+=-S
+all: gsegvan
 
-OBJS+=segwit_addr.o #\
-#	secp256k1/.libs/libsecp256k1.a
+gsegvan: secp256k1/.libs/libsecp256k1.a
 
-all: secp256k1/.libs/libsecp256k1.a
-
-.if ("$(.CURDIR)" == "$(.OBJDIR)")
-SECDIR=$(.CURDIR)/secp256k1
-secdir: .PHONY
-	:
-.else
-SECDIR=$(.OBJDIR)/secp256k1
-secdir: .PHONY
-	# Always leery of these in makefiles:
-	# rm -rf "$(SECDIR)"
-	if [ ! -f $(.OBJDIR)/secp256k1/.libs/libsecp256k1.a ] ; then \
-		(cd $(.OBJDIR) && rm -rf secp256k1) ; \
-		cp -Rp $(.CURDIR)/secp256k1 $(.OBJDIR) ; \
-		test -d $(SECDIR) ; \
-	fi
-.endif
-
-secp256k1/.libs/libsecp256k1.a: secdir
+secp256k1/.libs/libsecp256k1.a:
 	if [ ! -f $@ ] ; then \
-		test -d `dirname $@` || mkdir -p `dirname $@` ; \
-		rm -f $@ ; \
-		(cd $(SECDIR) && ./configure --enable-static --disable-shared) ; \
-		gmake -C $(SECDIR) ; \
-		if [ ! -f $@ ] ; then \
-			cp -a $(.CURDIR)/.libs/* `dirname $@` ; \
-		fi ; \
+		(cd secp256k1 && ./configure --enable-static --disable-shared) ; \
+		make -C secp256k1 ; \
 	fi
 	test -f $@
 
-LDADD=-lcrypto -lsecp256k1
-LDFLAGS=-L$(.OBJDIR)/secp256k1/.libs
+gsegvan: $(PROG).o segwit_addr.o sph_groestl.o groestl.o
+	cc $(LDFLAGS) -o $@ $(PROG).o segwit_addr.o sph_groestl.o groestl.o $(LDADD)
 
-.include <bsd.prog.mk>
+install:
+	install $(PROG) /usr/local/bin
+	install $(PROG).$(MANSEC) /usr/local/man/man1

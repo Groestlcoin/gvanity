@@ -9,7 +9,7 @@ struct testcase {
 	const unsigned char seckey[32];
 };
 
-#define	NTESTCASES	8
+#define	NTESTCASES	1
 
 #define	TESTSEC_LOWEST	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, \
 			0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, \
@@ -54,10 +54,10 @@ struct testcase {
 static const struct testcase testcase[NTESTCASES] = {
 	{
 #ifdef LCRYPTO_OPS
-		.bech32addr = "bc1qw508d6qejxtdg4y5r3zarvary0c5xw7kv8f3t4",
-		.nested3addr = "3JvL6Ymt8MVWiCNHC7oWU6nLeHNJKLZGLN",
-		.bech32wif = "L5oLkpV3aqBjhki6LmvChTCq73v9gyymzzMpBbhDLjDpLCfkwaDM",
-		.nested3wif = "LENyKyqwkz6sgGirtrK6VdJKMV7oXQFWARywk43JqCyXcXx1uyaB",
+		.bech32addr = "grs1qw508d6qejxtdg4y5r3zarvary0c5xw7k3k4sj5",
+		.nested3addr = "3JvL6Ymt8MVWiCNHC7oWU6nLeHNJFpSXbA",
+		.bech32wif = "KwDiBf89QgGbjEhKnhXJuH7LrciVrZi3qYjgd9M7rFU73sX6ptSt",
+		.nested3wif = "LENyKyqwkz6sgGirtrK6VdJKMV7oXQFWARywk43JqCyXcXtJpTRS",
 #else
 		.bech32addr = NULL,
 		.nested3addr = NULL,
@@ -65,104 +65,6 @@ static const struct testcase testcase[NTESTCASES] = {
 		.nested3wif = NULL,
 #endif
 		.seckey = { TESTSEC_LOWEST }
-	},
-	{
-#ifdef LCRYPTO_OPS
-		.bech32addr = "bc1q4h0ycu78h88wzldxc7e79vhw5xsde0n8jk4wl5",
-		.nested3addr = "38Kw57SDszoUEikRwJNBpypPSdpbAhToeD",
-		.bech32wif = "LENyKyqwkz6sgGirtrK6VdHyMEqXeUiFWXso2UcvKMqTXfp4RDLE",
-		.nested3wif = "LNxbu9Cqw921enjdSvhzHoPTbg3BUtyyfyVvavy1oqbAozzjwAne",
-#else
-		.bech32addr = NULL,
-		.nested3addr = NULL,
-		.bech32wif = NULL,
-		.nested3wif = NULL,
-#endif
-		.seckey = { TESTSEC_HIGHEST }
-	},
-	{
-#ifdef LCRYPTO_OPS
-		.bech32addr = "bc1qpc703tdttncs09r4q9pcq8aujx7av9uq4sh92r",
-		.nested3addr = "3BBKbcdzfWp2PMibzh6nRRuewnjGr8qsnY",
-		.bech32wif = "L7rj17HYWWcfH9ZmA5GCwP71TC9GQf19CHUd5TyFWCnywugZRPRE",
-		.nested3wif = "LGSMaGeSgfXoFfaXi9f6jZCVhdLvF5GsMj6kdvKLzgYhEEpKfCZZ",
-#else
-		.bech32addr = NULL,
-		.nested3addr = NULL,
-		.bech32wif = NULL,
-		.nested3wif = NULL,
-#endif
-		.seckey = { TESTSEC_0 }
-	},
-	{
-#ifdef LCRYPTO_OPS
-		.bech32addr = "bc1qnhtdvtplh9wh6d4sg7tjnrcnlhzcgegzmgvrec",
-		.nested3addr = "3C8ZgkS4NxdS1B3LR5URAUifLH6Egyp9pJ",
-		.bech32wif = "LDfY9v23QbHYmbo36LZfqEUUtaaZimAtazCV8GA28bzMbFb4uuZF",
-		.nested3wif = "LNFAj5NwakCgk7ooeQxZdQZy91nDZBSckRpcgiW7d5k4saoKKjBS",
-#else
-		.bech32addr = NULL,
-		.nested3addr = NULL,
-		.bech32wif = NULL,
-		.nested3wif = NULL,
-#endif
-		.seckey = { TESTSEC_1 }
-	},
-	{
-#ifdef LCRYPTO_OPS
-		.bech32addr = "bc1q2zzpsregwl82mvn00x0ra8t3vqvsx6j93t55h2",
-		.nested3addr = "39pYxHYFH92v1vgkQN3zGMupgQE2GTxKTe",
-		.bech32wif = "L9UMvXfDF5aL6qY76ZiLUtgsedo4cvyBhukxpojLoR2qJ1PTtXfT",
-		.nested3wif = "LJ3zVh27REVU5MYsee7EH4nMu4ziTMEusMP6PG5SHtnYaLYJYX8w",
-#else
-		.bech32addr = NULL,
-		.nested3addr = NULL,
-		.bech32wif = NULL,
-		.nested3wif = NULL,
-#endif
-		.seckey = { TESTSEC_2 }
-	},
-	{
-#ifdef LCRYPTO_OPS
-		.bech32addr = "bc1q8jnjuhamh7eadjw48teasldz9dn095uug5xcr2",
-		.nested3addr = "3JQJj5BvtdpSEx27GghfPnrWpAhy8rYp4s",
-		.bech32wif = "LDduCk5ybgaF3DgYq5ePBrsQ6C4KpX96RaSVYo7MwKgtGeXVpH4b",
-		.nested3wif = "LNDXmuSsmqVP1jhKPA3Gz2xtLdFyewQpb24d7FTTRoSbYyj3EwLb",
-#else
-		.bech32addr = NULL,
-		.nested3addr = NULL,
-		.bech32wif = NULL,
-		.nested3wif = NULL,
-#endif
-		.seckey = { TESTSEC_3 }
-	},
-	{
-#ifdef LCRYPTO_OPS
-		.bech32addr = "bc1qqvw25wffvtt3779ah5apnfq0jjq4rs3d6f79zn",
-		.nested3addr = "3F7eHv7jkF2fa3GyGfwrvyCorHFxjz2W7r",
-		.bech32wif = "L6gmG72fPGCX94mLDLGqueRzj4K93mSPNhrPDEq4N6ZTqrQ2H2uk",
-		.nested3wif = "LFGPqGPZZR7f7an6mQfjhpXUyVWntBi7Y9UWmhB9raKB8BeFGXP3",
-#else
-		.bech32addr = NULL,
-		.nested3addr = NULL,
-		.bech32wif = NULL,
-		.nested3wif = NULL,
-#endif
-		.seckey = { TESTSEC_4 }
-	},
-	{
-#ifdef LCRYPTO_OPS
-		.bech32addr = "bc1q6u937pkurxe0u6ew8wneyylr63uty9xjufcjmw",
-		.nested3addr = "3My6khAmGGdg2qiKj1ynGfgvnWxFtppVi9",
-		.bech32wif = "L5sHnjZVMxM47WVwhiLS19aXEy5fBjfQMkhcavRVdVDqjdQufWKj",
-		.nested3wif = "LESvMtvPY7GC62WiFnjKoKg1VQHK29w8XCKk9Nmb7xyZ1xZ46VTs",
-#else
-		.bech32addr = NULL,
-		.nested3addr = NULL,
-		.bech32wif = NULL,
-		.nested3wif = NULL,
-#endif
-		.seckey = { TESTSEC_5 }
 	}
 };
 
